@@ -16,5 +16,8 @@ class HOPRPGFRAMEWORK_API UHopEnemyCombatComponent : public UHopPawnCombatCompon
 
 public:
 	virtual void OnHitTargetActor(AActor* HitActor) override;
+
+protected:
+	virtual void ToggleBodyCollsionBoxCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType) override;
 	
 };

@@ -53,6 +53,26 @@ void UHopPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleD
 {
 	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
 	{
+		ToggleCurrentEquippedWeaponCollision(bShouldEnable);
+	}
+	else
+	{
+		ToggleBodyCollsionBoxCollision(bShouldEnable, ToggleDamageType);
+	}
+
+}
+
+void UHopPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
+{
+}
+
+void UHopPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
+{
+}
+
+void UHopPawnCombatComponent::ToggleCurrentEquippedWeaponCollision(bool bShouldEnable)
+{
+
 		AHopWeaponBase* WeaponToToggle = GetCharcterCurrentEquippedWeapon();
 
 		check(WeaponToToggle);
@@ -68,21 +88,16 @@ void UHopPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleD
 			/*Debug::Print(WeaponToToggle->GetName() + TEXT("Collision Disabled"), FColor::Red);*/
 
 			OverlappedActors.Empty();
-			
+
 		}
 
-		
 
-	}
+
+	
 
 	//TODO: Handle Body Collison Boxes
-
 }
 
-void UHopPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
-{
-}
-
-void UHopPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
+void UHopPawnCombatComponent::ToggleBodyCollsionBoxCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
 {
 }
