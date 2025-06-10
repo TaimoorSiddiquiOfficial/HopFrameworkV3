@@ -48,6 +48,26 @@ void UHOPAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 		const float NewCurrentRage = FMath::Clamp(GetCurrentRage(), 0.f, GetMaxRage());
 		SetCurrentRage(NewCurrentRage);
 
+		if (GetCurrentRage() == GetMaxRage())
+		{
+			UHopFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), HopGameplayTags::Player_Status_Rage_Full);
+		}
+		else if (GetCurrentRage() == 0.f)
+		{
+			UHopFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), HopGameplayTags::Player_Status_Rage_None);
+		}
+		else
+		{
+			UHopFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(), HopGameplayTags::Player_Status_Rage_Full);
+			UHopFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(), HopGameplayTags::Player_Status_Rage_None);
+		}
+
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage() / GetMaxRage());
+		}
+	
+
 		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
 		{
 			HeroUIComponent->OnCurrentRageChanged.Broadcast(GetCurrentRage() / GetMaxRage());

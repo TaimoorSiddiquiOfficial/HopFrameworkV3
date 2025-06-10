@@ -19,7 +19,7 @@ void UHOPDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UHOPAbilitySyst
 		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
 		AbilitySpec.SourceObject = InASCToGive->GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 
 
 		InASCToGive->GiveAbility(AbilitySpec);

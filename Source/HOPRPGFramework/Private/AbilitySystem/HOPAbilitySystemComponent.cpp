@@ -14,7 +14,7 @@ void UHOPAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInp
 
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag)) continue;
+		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue;
 
 		if (InInputTag.MatchesTag(HopGameplayTags::InputTag_Toggleable) && AbilitySpec.IsActive())
 		{
@@ -39,7 +39,7 @@ void UHOPAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InIn
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
 		if (
-			AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag) &&
+			AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag) &&
 			AbilitySpec.IsActive()
 		)
 		{
@@ -61,7 +61,7 @@ void UHOPAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FHopHeroA
 		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant, ApplyLevel);
 		AbilitySpec.SourceObject = GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 
 		
 
